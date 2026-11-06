@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>media-pulse · weekly media briefs</title>
+<style>
+  :root { --ink: #1d2433; --muted: #5b6475; --line: #e3e6ec; --bg: #f7f8fa; --card: #fff; --accent: #2f5d50; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif; color: var(--ink); background: var(--bg); }
+  main { max-width: 860px; margin: 0 auto; padding: 48px 20px 64px; }
+  .eyebrow { text-transform: uppercase; letter-spacing: .08em; font-size: 12px; color: var(--accent); font-weight: 600; }
+  h1 { font-size: 34px; margin: 6px 0 8px; }
+  p.lede { color: var(--muted); max-width: 640px; }
+  a.card { display: block; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 22px 24px; margin-top: 16px; color: inherit; text-decoration: none; }
+  a.card:hover { border-color: var(--accent); }
+  a.card h2 { margin: 0 0 4px; font-size: 20px; color: var(--accent); }
+  .meta { font-size: 14px; color: var(--muted); }
+  .headline { margin: 10px 0 0; }
+  .themes { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .themes span { font-size: 12px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+  footer { margin-top: 36px; font-size: 13px; color: var(--muted); }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">media-pulse</div>
+  <h1>Weekly media briefs</h1>
+  <p class="lede">What the publications each audience reads are covering right now, grouped into themes with links and content angles. Refreshed automatically every week.</p>
+  {% for b in briefs %}
+  <a class="card" href="{{ b.audience.key }}.html">
+    <h2>{{ b.audience.label }}</h2>
+    <div class="meta">{{ b.generated|longdate }} · {{ b.article_count }} articles from {{ b.source_names|length }} publications</div>
+    {% if b.headline %}<p class="headline">{{ b.headline }}</p>{% endif %}
+    <div class="themes">{% for t in b.themes %}<span>{{ t.name }}</span>{% endfor %}</div>
+  </a>
+  {% endfor %}
+  <footer>Built with <a href="https://github.com/justfranklin/media-pulse">media-pulse</a>.</footer>
+</main>
+</body>
+</html>

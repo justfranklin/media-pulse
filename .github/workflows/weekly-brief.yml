@@ -1,0 +1,63 @@
+name: Weekly media brief
+
+# Runs every Monday morning (US Eastern), or on demand from the Actions tab.
+on:
+  schedule:
+    - cron: "17 11 * * 1"
+  workflow_dispatch:
+    inputs:
+      presets:
+        description: "Comma-separated audience presets"
+        default: "ip-brand-protection,marketing-ops,search-aeo"
+      days:
+        description: "Days to look back"
+        default: "7"
+
+permissions:
+  contents: write   # commit the Markdown brief to /briefs
+  pages: write      # publish the HTML brief to GitHub Pages
+  id-token: write
+
+concurrency:
+  group: weekly-brief
+  cancel-in-progress: false
+
+jobs:
+  brief:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Build briefs
+        env:
+          # Optional. Without it, themes come from offline keyword grouping.
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python -m mediapulse \
+            --preset "${{ github.event.inputs.presets || 'ip-brand-protection,marketing-ops,search-aeo' }}" \
+            --days "${{ github.event.inputs.days || '7' }}"
+
+      - name: Commit Markdown briefs
+        run: |
+          git config user.name "media-pulse bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add briefs
+          git diff --cached --quiet || git commit -m "Weekly brief $(date -u +%Y-%m-%d)"
+          git push
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deploy
+        uses: actions/deploy-pages@v4

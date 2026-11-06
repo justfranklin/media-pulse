@@ -1,0 +1,63 @@
+# Audience presets: who you're marketing to, and the publications they actually read.
+#
+# Each source needs a `name` and a `domain`. Add `feed` when the publication has a
+# known RSS feed; otherwise media-pulse searches Google News for recent articles from
+# that domain. If a feed fails, it falls back to the Google News search automatically.
+#
+# `keywords` drive relevance ranking: articles that mention them rank higher.
+
+ip-brand-protection:
+  label: IP & brand protection
+  description: >
+    In-house trademark and IP counsel, brand protection leads and domain portfolio
+    managers at global brands.
+  keywords: [trademark, brand protection, domain, gTLD, ICANN, UDRP, cybersquatting,
+    counterfeit, infringement, dotBrand, TLD, phishing, impersonation, IP]
+  sources:
+    - {name: World Trademark Review, domain: worldtrademarkreview.com}
+    - {name: WIPR, domain: worldipreview.com}
+    - {name: Managing IP, domain: managingip.com}
+    - {name: IPWatchdog, domain: ipwatchdog.com, feed: "https://ipwatchdog.com/feed/"}
+    - {name: Domain Name Wire, domain: domainnamewire.com, feed: "https://domainnamewire.com/feed/"}
+    - {name: Domain Incite, domain: domainincite.com, feed: "https://domainincite.com/feed"}
+    - {name: ICANN, domain: icann.org}
+
+marketing-ops:
+  label: Marketing operations
+  description: >
+    Marketing ops, martech and revenue ops leaders who own the CRM, automation
+    platform, data and attribution.
+  keywords: [marketing operations, martech, CRM, HubSpot, Salesforce, Marketo,
+    attribution, automation, lead scoring, data, AI agents, revenue operations, ABM]
+  sources:
+    - {name: MarTech, domain: martech.org, feed: "https://martech.org/feed/"}
+    - {name: Marketing Dive, domain: marketingdive.com}
+    - {name: Chief Marketer, domain: chiefmarketer.com}
+    - {name: Search Engine Land, domain: searchengineland.com, feed: "https://searchengineland.com/feed"}
+    - {name: HubSpot Marketing Blog, domain: blog.hubspot.com}
+
+search-aeo:
+  label: Search & AI visibility
+  description: >
+    Website, SEO and content leads working on organic search, answer engine
+    optimization (AEO) and visibility in AI assistants.
+  keywords: [SEO, AEO, AI Overviews, search, Google, ChatGPT, Perplexity, ranking,
+    content, LLM, generative engine, Search Console, algorithm update]
+  sources:
+    - {name: Search Engine Land, domain: searchengineland.com, feed: "https://searchengineland.com/feed"}
+    - {name: Search Engine Journal, domain: searchenginejournal.com, feed: "https://www.searchenginejournal.com/feed/"}
+    - {name: Search Engine Roundtable, domain: seroundtable.com, feed: "https://www.seroundtable.com/index.xml"}
+    - {name: Moz Blog, domain: moz.com}
+
+cybersecurity:
+  label: Security leaders
+  description: >
+    CISOs, security directors and SOC leads at mid-size and enterprise companies.
+  keywords: [CISO, ransomware, phishing, breach, vulnerability, email security,
+    threat, zero-day, AI, identity, SOC, regulation, domain]
+  sources:
+    - {name: Dark Reading, domain: darkreading.com}
+    - {name: SecurityWeek, domain: securityweek.com}
+    - {name: BleepingComputer, domain: bleepingcomputer.com, feed: "https://www.bleepingcomputer.com/feed/"}
+    - {name: The Record, domain: therecord.media}
+    - {name: CSO Online, domain: csoonline.com}
